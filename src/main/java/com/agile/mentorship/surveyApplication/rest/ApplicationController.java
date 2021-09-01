@@ -11,4 +11,9 @@ public class ApplicationController {
     public String home() {
         return "Home page";
     }
+
+    @RequestMapping(method = RequestMethod.GET)
+    public String survey() {
+        return "Survey page";
+    }
 }
