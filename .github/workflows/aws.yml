@@ -3,7 +3,7 @@ name: Deploy to AWS CloudFormation
 on:
   push:
     branches:
-      - aws-actions
+      - aws-action-deploy
 
 jobs:
   deploy:
