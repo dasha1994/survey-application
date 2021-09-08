@@ -25,4 +25,4 @@ jobs:
       run: |
         echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
         ssh -o StrictHostKeyChecking=no -i private_key ec2-user@ec2-34-211-87-105.us-west-2.compute.amazonaws.com
-        ls -a
+        scp -i private_key ec2_stack_template.yaml ec2-user@ec2-34-211-87-105.us-west-2.compute.amazonaws.com:~/
