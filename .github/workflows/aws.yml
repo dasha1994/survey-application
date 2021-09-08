@@ -6,23 +6,36 @@ on:
       - aws-action-deploy
 
 jobs:
-  deploy:
+  build:
 
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Checkout
-#    - name: Configure AWS credentials
-#      id: creds
-#      uses: aws-actions/configure-aws-credentials@v1
-#      with:
-#        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-#        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-#        aws-region: eu-west-2
+      - uses: actions/checkout@v2
+      - name: Set up JDK 8
+        uses: actions/setup-java@v2
+        with:
+          java-version: '8'
+          distribution: 'adopt'
+          cache: gradle
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+      - name: Build with Gradle
+        run: ./gradlew build -x test
+      - uses: actions/upload-artifact@v2
+        with:
+          name: Package
+          path: build/libs
+  deploy:
+    - name: Download all workflow run artifacts
+      uses: actions/download-artifact@v2
+      with:
+        name: Package
+    - name: Deployment
       env:
         PRIVATE_KEY: ${{ secrets.AWS_PEM  }}
       run: |
         echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+        ls -a
         ssh -o StrictHostKeyChecking=no -i private_key ec2-user@ec2-34-211-87-105.us-west-2.compute.amazonaws.com
-        scp -i private_key ec2_stack_template.yaml ec2-user@ec2-34-211-87-105.us-west-2.compute.amazonaws.com:~/
+        scp -i private_key Package ec2-user@ec2-34-211-87-105.us-west-2.compute.amazonaws.com:~/
