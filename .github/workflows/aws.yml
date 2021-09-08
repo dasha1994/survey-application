@@ -24,4 +24,4 @@ jobs:
         PRIVATE_KEY: ${{ secrets.AWS_PEM  }}
       run: |
         echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
-        ssh -i $PRIVATE_KEY ec2-user@ec2-34-211-87-105.us-west-2.compute.amazonaws.com
+        ssh -o StrictHostKeyChecking=no -i private_key ec2-user@ec2-34-211-87-105.us-west-2.compute.amazonaws.com
