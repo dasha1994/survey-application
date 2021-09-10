@@ -2,6 +2,7 @@ on:
   push:
     paths:
       - 'ec2_stack_template.yaml'
+      - '**.yaml'
 
 jobs:
   deploy:
