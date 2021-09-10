@@ -1,0 +1,11 @@
+on:
+  push:
+    paths:
+      - 'ec2_stack_template.yaml'
+
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test run
+        run: |
+          ls -a
