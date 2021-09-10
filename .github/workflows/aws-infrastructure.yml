@@ -3,6 +3,7 @@ on:
     paths:
       - 'ec2_stack_template.yaml'
 
+jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
