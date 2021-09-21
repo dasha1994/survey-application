@@ -31,6 +31,12 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-west-2
     - name: Download all workflow run artifacts
       uses: actions/download-artifact@v2
       with:
@@ -43,3 +49,4 @@ jobs:
         ls -a
         ssh -o StrictHostKeyChecking=no -i private_key ec2-user@ec2-34-211-87-105.us-west-2.compute.amazonaws.com
         scp -i private_key surveyApplication-0.0.1-SNAPSHOT.jar ec2-user@ec2-34-211-87-105.us-west-2.compute.amazonaws.com:~/
+        aws ec2 reboot-instances --instance-ids i-0d15aa9397f8f80c6
