@@ -80,8 +80,8 @@ Resources:
 
           #!/bin/bash
           /bin/echo $(date) + "Hello World" >> /tmp/testfile.txt
-          /bin/echo $(date) >> /tmp/testfile.txt
           /bin/java -jar surveyApplication-0.0.1-SNAPSHOT.jar
+          /bin/echo $(date) >> /tmp/testfile.txt
           --//--
   InstanceSecurityGroup:
     Type: AWS::EC2::SecurityGroup
