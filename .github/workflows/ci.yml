@@ -43,7 +43,13 @@ jobs:
         ls -a
         ssh -o StrictHostKeyChecking=no -i private_key ec2-user@ec2-52-37-27-64.us-west-2.compute.amazonaws.com
         scp -i private_key surveyApplication-0.0.1-SNAPSHOT.jar ec2-user@ec2-52-37-27-64.us-west-2.compute.amazonaws.com:~/
-#    - name: Reboot ec2 instance
-#        run: |
-#          ls -a
-#          aws ec2 reboot-instances --instance-ids i-0d15aa9397f8f80c6
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-west-2
+    - name: Reboot ec2 instance
+        run: |
+          ls -a
+          aws ec2 reboot-instances --instance-ids i-0b2b211f680d3ec71
