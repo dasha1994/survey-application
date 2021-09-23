@@ -52,4 +52,4 @@ jobs:
     - name: Reboot ec2 instance
       run: |
         ls -a
-        aws ec2 reboot-instances --instance-ids i-0b2b211f680d3ec71
+        aws ec2 reboot-instances --instance-ids i-0ec466899d8c7290e
