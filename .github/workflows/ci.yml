@@ -41,5 +41,9 @@ jobs:
       run: |
         echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
         ls -a
-        ssh -o StrictHostKeyChecking=no -i private_key ec2-user@ec2-54-185-245-89.us-west-2.compute.amazonaws.com
-        scp -i private_key surveyApplication-0.0.1-SNAPSHOT.jar ec2-user@ec2-54-185-245-89.us-west-2.compute.amazonaws.com:~/
+        ssh -o StrictHostKeyChecking=no -i private_key ec2-user@ec2-52-37-27-64.us-west-2.compute.amazonaws.com
+        scp -i private_key surveyApplication-0.0.1-SNAPSHOT.jar ec2-user@ec2-52-37-27-64.us-west-2.compute.amazonaws.com:~/
+#    - name: Reboot ec2 instance
+#        run: |
+#          ls -a
+#          aws ec2 reboot-instances --instance-ids i-0d15aa9397f8f80c6
