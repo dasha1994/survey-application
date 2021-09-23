@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class ApplicationController {
     @RequestMapping(method = RequestMethod.GET)
     public String survey() {
-        //comment
         return "Survey page";
     }
 }
