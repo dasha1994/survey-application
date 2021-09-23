@@ -80,7 +80,9 @@ Resources:
 
           #!/bin/bash
           /bin/echo $(date) + "Hello World" >> /tmp/testfile.txt
-          /bin/java -jar surveyApplication-0.0.1-SNAPSHOT.jar
+          cd /home/ec2-user/
+          ls -a
+          java -jar surveyApplication-0.0.1-SNAPSHOT.jar
           /bin/echo $(date) >> /tmp/testfile.txt
           --//--
   InstanceSecurityGroup:
