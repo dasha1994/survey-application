@@ -41,8 +41,8 @@ jobs:
       run: |
         echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
         ls -a
-        ssh -o StrictHostKeyChecking=no -i private_key ec2-user@ec2-52-37-27-64.us-west-2.compute.amazonaws.com
-        scp -i private_key surveyApplication-0.0.1-SNAPSHOT.jar ec2-user@ec2-52-37-27-64.us-west-2.compute.amazonaws.com:~/
+        ssh -o StrictHostKeyChecking=no -i private_key ec2-user@ec2-34-217-123-85.us-west-2.compute.amazonaws.com
+        scp -i private_key surveyApplication-0.0.1-SNAPSHOT.jar ec2-user@eec2-34-217-123-85.us-west-2.compute.amazonaws.com:~/
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
