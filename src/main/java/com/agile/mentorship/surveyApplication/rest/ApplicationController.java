@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/")
 public class ApplicationController {
+    //comment
     @RequestMapping(method = RequestMethod.GET)
     public String survey() {
         return "Survey page";
