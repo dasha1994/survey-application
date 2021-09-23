@@ -79,11 +79,11 @@ Resources:
           Content-Disposition: attachment; filename="userdata.txt"
 
           #!/bin/bash
-          /bin/echo $(date) + "Hello World" >> /tmp/testfile.txt
+          sudo service httpd start
           cd /home/ec2-user/
+          /bin/echo $(date) >> testfile.txt
           ls -a
           java -jar surveyApplication-0.0.1-SNAPSHOT.jar
-          /bin/echo $(date) >> /tmp/testfile.txt
           --//--
   InstanceSecurityGroup:
     Type: AWS::EC2::SecurityGroup

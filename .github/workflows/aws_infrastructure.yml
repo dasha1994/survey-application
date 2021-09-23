@@ -16,4 +16,4 @@ jobs:
           aws-region: us-west-2
       - name: Update AWS CloudFormation Stack
         run: |
-          aws cloudformation update-stack --stack-name SurveyAppStack --template-body file://ec2_stack_template.yaml
+          aws cloudformation update-stack --stack-name survey-demo-stack --template-body file://ec2_stack_template.yaml
