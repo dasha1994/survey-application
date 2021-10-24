@@ -3,7 +3,7 @@ name: Deploy to EC2
 on:
   push:
     branches:
-      - aws-action-deploy
+      - aws-action-deply
 
 jobs:
   build:
