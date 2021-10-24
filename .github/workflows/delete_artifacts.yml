@@ -2,7 +2,7 @@ name: 'Delete old artifacts'
 on:
   push:
     branches:
-      - aws-action-deploy
+      - aws-action-deply
 
 jobs:
   delete-artifacts:
