@@ -7,6 +7,13 @@ plugins {
 
 group = 'com.agile.mentorship'
 
+scmVersion {
+	branchVersionIncrementer = [
+			'feature/.*' : 'incrementMinor',
+			'bugfix/.*' : { c -> c.currentVersion.incrementPatchVersion() },
+			'legacy/.*' : [ 'incrementMinorIfNotOnRelease', [releaseBranchPattern: 'legacy/release.*'] ]
+	]
+}
 version = scmVersion.version
 
 repositories {
