@@ -26,11 +26,10 @@ jobs:
           ./gradlew build -x test
       - uses: actions/upload-artifact@v2
         with:
-          name: Package6
+          name: Package7
           path: build/libs
   remove-old-artifacts:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
 
     steps:
       - name: Remove old artifacts
