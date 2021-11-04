@@ -14,7 +14,7 @@ scmVersion {
 			'legacy/.*' : [ 'incrementMinorIfNotOnRelease', [releaseBranchPattern: 'legacy/release.*'] ]
 	]
 }
-version = '1.2.3'
+version = scmVersion.version
 
 repositories {
 	mavenCentral()
