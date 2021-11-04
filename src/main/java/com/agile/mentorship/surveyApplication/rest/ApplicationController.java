@@ -10,6 +10,6 @@ public class ApplicationController {
     //comment
     @RequestMapping(method = RequestMethod.GET)
     public String survey() {
-        return "Survey page and artifact 2";
+        return "Survey page and artifact 3";
     }
 }
