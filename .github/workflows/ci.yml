@@ -3,7 +3,7 @@ name: Deploy to EC2
 on:
   push:
     branches:
-      - aws-action-deploy
+      - feature/versioning
 
 jobs:
   build:
@@ -21,7 +21,9 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
       - name: Build with Gradle
-        run: ./gradlew build -x test
+        run: |
+          echo ./gradlew currentVersion
+          ./gradlew build -x test
       - uses: actions/upload-artifact@v2
         with:
           name: Package
