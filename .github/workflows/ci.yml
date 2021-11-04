@@ -23,8 +23,8 @@ jobs:
       - name: Build with Gradle
         run: |
           ./gradlew currentVersion
-          ./gradlew build -x test
           ./gradlew release
+          ./gradlew build -x test
       - uses: actions/upload-artifact@v2
         with:
           name: Package
