@@ -24,34 +24,35 @@ jobs:
         run: |
           ./gradlew currentVersion
           ./gradlew build -x test
+          ./gradlew release
       - uses: actions/upload-artifact@v2
         with:
           name: Package
           path: build/libs
 
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-    - name: Download all workflow run artifacts
-      uses: actions/download-artifact@v2
-      with:
-        name: Package
-    - name: Deployment
-      env:
-        PRIVATE_KEY: ${{ secrets.AWS_PEM  }}
-      run: |
-        echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
-        ls -a
-        ssh -o StrictHostKeyChecking=no -i private_key ec2-user@ec2-18-237-126-244.us-west-2.compute.amazonaws.com
-        scp -i private_key surveyApplication-0.1-SNAPSHOT.jar ec2-user@ec2-18-237-126-244.us-west-2.compute.amazonaws.com:~/
-    - name: Configure AWS Credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: us-west-2
-    - name: Reboot ec2 instance
-      run: |
-        ls -a
-        aws ec2 reboot-instances --instance-ids i-0ec466899d8c7290e
+#  deploy:
+#    runs-on: ubuntu-latest
+#    needs: build
+#    steps:
+#    - name: Download all workflow run artifacts
+#      uses: actions/download-artifact@v2
+#      with:
+#        name: Package
+#    - name: Deployment
+#      env:
+#        PRIVATE_KEY: ${{ secrets.AWS_PEM  }}
+#      run: |
+#        echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+#        ls -a
+#        ssh -o StrictHostKeyChecking=no -i private_key ec2-user@ec2-18-237-126-244.us-west-2.compute.amazonaws.com
+#        scp -i private_key surveyApplication-0.1-SNAPSHOT.jar ec2-user@ec2-18-237-126-244.us-west-2.compute.amazonaws.com:~/
+#    - name: Configure AWS Credentials
+#      uses: aws-actions/configure-aws-credentials@v1
+#      with:
+#        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#        aws-region: us-west-2
+#    - name: Reboot ec2 instance
+#      run: |
+#        ls -a
+#        aws ec2 reboot-instances --instance-ids i-0ec466899d8c7290e
