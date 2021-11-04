@@ -26,7 +26,7 @@ jobs:
           ./gradlew build -x test
       - uses: actions/upload-artifact@v2
         with:
-          name: Package8
+          name: Package9
           path: build/libs
   remove-old-artifacts:
     runs-on: ubuntu-latest
@@ -35,7 +35,7 @@ jobs:
       - name: Remove old artifacts
         uses: c-hive/gha-remove-artifacts@v1
         with:
-          age: '1 month'
+          age: '1 day'
           skip-recent: 3
 #  deploy:
 #    runs-on: ubuntu-latest
