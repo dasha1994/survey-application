@@ -2,7 +2,7 @@ name: 'Delete old artifacts'
 on:
   push:
     branches:
-      - feature/versioning
+      - feautre/versioning
 
 jobs:
   delete-artifacts:
