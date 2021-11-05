@@ -18,6 +18,12 @@ jobs:
           java-version: '8'
           distribution: 'adopt'
           cache: gradle
+      - name: Set env
+        run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+      - name: Test
+        run: |
+          echo $RELEASE_VERSION
+          echo ${{ env.RELEASE_VERSION }}
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
       - name: Build with Gradle
@@ -29,22 +35,14 @@ jobs:
           name: Package5
           path: build/libs
 
-  remove-old-artifacts:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Remove old artifacts
-        uses: Remagpie/gha-remove-artifact@v1
-        with:
-          max-count: 3
 #  remove-old-artifacts:
 #    runs-on: ubuntu-latest
-
 #    steps:
 #      - name: Remove old artifacts
-#        uses: c-hive/gha-remove-artifacts@v1
+#        uses: Remagpie/gha-remove-artifact@v1
 #        with:
-#          age: '1 day'
-#          skip-recent: 3
+#          max-count: 3
+
 #  deploy:
 #    runs-on: ubuntu-latest
 #    needs: build
