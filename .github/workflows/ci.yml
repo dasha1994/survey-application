@@ -33,7 +33,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Remove old artifacts
-      - uses: Remagpie/gha-remove-artifact@v1
+        uses: Remagpie/gha-remove-artifact@v1
         with:
           max-count: 3
 #  remove-old-artifacts:
