@@ -28,11 +28,12 @@ jobs:
         run: chmod +x gradlew
       - name: Build with Gradle
         run: |
+          git describe
           ./gradlew currentVersion
           ./gradlew build -x test
       - uses: actions/upload-artifact@v2
         with:
-          name: PackageTag
+          name: PackageTag1
           path: build/libs
 
 #  remove-old-artifacts:
@@ -41,7 +42,7 @@ jobs:
 #      - name: Remove old artifacts
 #        uses: Remagpie/gha-remove-artifact@v1
 #        with:
-#          max-count: 3
+#          max-count: 10
 
 #  deploy:
 #    runs-on: ubuntu-latest
