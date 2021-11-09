@@ -25,6 +25,7 @@ jobs:
       - name: Build with Gradle
         run: |
           git tag --list
+          git tag --sort=committerdate | tail -n 1
           ./gradlew build -x test
       - uses: actions/upload-artifact@v2
         with:
