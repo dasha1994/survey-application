@@ -24,8 +24,8 @@ jobs:
         run: chmod +x gradlew
       - name: Build with Gradle
         run: |
-          git describe --abbrev=0
-          git describe --abbrev=0 --tags
+          git fetch --prune --unshallow --tags
+#          git describe --abbrev=0 --tags
           ./gradlew build -x test
       - uses: actions/upload-artifact@v2
         with:
