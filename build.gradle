@@ -1,20 +1,11 @@
 plugins {
 	id 'org.springframework.boot' version '2.5.4'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
-	id 'pl.allegro.tech.build.axion-release' version '1.13.6'
 	id 'java'
 }
 
 group = 'com.agile.mentorship'
 
-scmVersion {
-	branchVersionIncrementer = [
-			'feature/.*' : 'incrementMinor',
-			'bugfix/.*' : { c -> c.currentVersion.incrementPatchVersion() },
-			'legacy/.*' : [ 'incrementMinorIfNotOnRelease', [releaseBranchPattern: 'legacy/release.*'] ]
-	]
-}
-version = scmVersion.version
 sourceCompatibility = '1.8'
 
 repositories {
