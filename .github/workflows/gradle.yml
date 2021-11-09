@@ -31,8 +31,11 @@ jobs:
           version=$(git tag --sort=committerdate | tail -n 1)
           echo "Version:::::::::"
           echo $version
-          a=( ${version//./ } )
-          version="${a[2]}"
+          version_array=( ${version//./ } )
+          minor="${version_array[1]}"
+          echo "minor" + $minor
+          patch="${version_array[2]}"
+          echo "patch" + patch
           echo $version
           ./gradlew build -x test
       - uses: actions/upload-artifact@v2
