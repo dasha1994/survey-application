@@ -33,9 +33,9 @@ jobs:
           echo $version
           version_array=( ${version//./ } )
           minor="${version_array[1]}"
-          echo "minor" + $minor
+          echo "minor $minor"
           patch="${version_array[2]}"
-          echo "patch" + $patch
+          echo "patch $patch"
           echo $version
           ./gradlew build -x test
       - uses: actions/upload-artifact@v2
