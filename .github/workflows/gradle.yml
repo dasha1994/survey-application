@@ -32,7 +32,6 @@ jobs:
           echo "Version:::::::::"
           echo $version
           a=( ${version//./ } )
-          ((a[2]++))
           version="${a[2]}"
           echo $version
           ./gradlew build -x test
