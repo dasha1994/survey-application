@@ -23,12 +23,13 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
       - name: Build with Gradle
+        env:
+          GITHUB_CONTEXT: ${{ toJSON(github) }}
         run: |
           git fetch --tags
           echo ##################
           git tag --sort=committerdate | tail -n 1
-          echo $GITHUB
-          echo $GITHUB_HEAD_REF
+          echo "$GITHUB_CONTEXT"
           ./gradlew build -x test
       - uses: actions/upload-artifact@v2
         with:
