@@ -28,7 +28,7 @@ jobs:
         run: |
           git fetch --tags
           echo ##################
-          version= $(git tag --sort=committerdate | tail -n 1)
+          version=$(git tag --sort=committerdate | tail -n 1)
           echo "Version:::::::::"
           echo $version
           a=( ${version//./ } )
