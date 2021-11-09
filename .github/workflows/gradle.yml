@@ -28,7 +28,7 @@ jobs:
           echo ##################
           git tag --sort=committerdate | tail -n 1
           echo '##################'
-          github
+          ${{ github }}
           ./gradlew build -x test
       - uses: actions/upload-artifact@v2
         with:
