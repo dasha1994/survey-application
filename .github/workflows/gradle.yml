@@ -28,8 +28,13 @@ jobs:
         run: |
           git fetch --tags
           echo ##################
-          git tag --sort=committerdate | tail -n 1
-          echo "$GITHUB_CONTEXT"
+          version= $(git tag --sort=committerdate | tail -n 1)
+          echo "Version:::::::::"
+          echo $version
+          a=( ${version//./ } )
+          ((a[2]++))
+          version="${a[2]}"
+          echo $version
           ./gradlew build -x test
       - uses: actions/upload-artifact@v2
         with:
