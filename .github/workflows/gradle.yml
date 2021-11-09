@@ -24,7 +24,9 @@ jobs:
         run: chmod +x gradlew
       - name: Build with Gradle
         run: |
-          echo $(git tag --sort=committerdate | tail -n 1)
+          echo $(git tag --sort=committerdate)
+          git tag --sort=committerdate
+          git tag -l --sort=committerdate
           ./gradlew build -x test
       - uses: actions/upload-artifact@v2
         with:
