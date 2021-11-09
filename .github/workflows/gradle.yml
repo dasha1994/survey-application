@@ -24,7 +24,7 @@ jobs:
         run: chmod +x gradlew
       - name: Build with Gradle
         env:
-          GITHUB_CONTEXT: ${{ toJSON(github) }}
+          GITHUB_CONTEXT: ${{ github.event.message }}
         run: |
           git fetch --tags
           echo ##################
