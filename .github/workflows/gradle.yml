@@ -27,6 +27,8 @@ jobs:
           git fetch --tags
           echo ##################
           git tag --sort=committerdate | tail -n 1
+          echo '##################'
+          github
           ./gradlew build -x test
       - uses: actions/upload-artifact@v2
         with:
