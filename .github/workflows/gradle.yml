@@ -38,8 +38,7 @@ jobs:
           patch="${version_array[2]}"
           echo "patch $patch"
           echo $version
-          if [[ $GITHUB_CONTEXT == feature* ]]
-          then
+          if [[ $GITHUB_CONTEXT == feature* ]]; then
             $minor++
             echo $major.$minor.$patch
           ./gradlew build -x test
