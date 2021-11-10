@@ -39,7 +39,7 @@ jobs:
           echo "patch $patch"
           echo $version
           echo $([[ $GITHUB_CONTEXT = feature* ]])
-          [[ $GITHUB_CONTEXT = feature* ]] && $minor++
+          [[ $GITHUB_CONTEXT = feature* ]] && echo "rrrr"
           echo $major.$minor.$patch
           ./gradlew build -x test
       - uses: actions/upload-artifact@v2
