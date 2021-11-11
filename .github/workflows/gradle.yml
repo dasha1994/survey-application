@@ -40,7 +40,7 @@ jobs:
           echo $version
           #!/bin/bash
           str="feature"
-          branch=($GITHUB_CONTEXT)
+          branch=$GITHUB_CONTEXT
           echo $branch
           echo ${branch[0]}
           if [[ $str == feature* ]] ;
