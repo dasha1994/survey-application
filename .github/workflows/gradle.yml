@@ -43,6 +43,9 @@ jobs:
           if [[ $branch == feature* ]] ;
           then
             ((minor = minor + 1))
+          elif [[ $branch == bugfix* ]] ;
+          then
+            ((patch = patch + 1))
           fi
           echo $major.$minor.$patch
           ./gradlew build -x test
