@@ -61,4 +61,4 @@ jobs:
       - name: Remove old artifacts
         uses: Remagpie/gha-remove-artifact@v1
         with:
-          max-count: 10
+          max-count: 3
