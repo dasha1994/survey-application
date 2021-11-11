@@ -55,3 +55,10 @@ jobs:
           path: build/libs
       - name: Download all workflow run artifacts
         uses: actions/download-artifact@v2
+  remove-old-artifacts:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Remove old artifacts
+        uses: Remagpie/gha-remove-artifact@v1
+        with:
+          max-count: 10
