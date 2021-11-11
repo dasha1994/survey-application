@@ -40,7 +40,7 @@ jobs:
           echo $version
           #!/bin/bash
           str="feature"
-          if [[ "$str" == feature* ]] ;
+          if [[ $str == feature* ]] ;
           then
             ((minor = minor + 1))
           fi
