@@ -38,7 +38,6 @@ jobs:
           patch="${version_array[2]}"
           echo "patch $patch"
           echo $version
-          #!/bin/bash
           str="feature"
           branch=($GITHUB_CONTEXT)
           if [[ $branch == feature* ]] ;
