@@ -40,6 +40,8 @@ jobs:
           echo $version
           #!/bin/bash
           str="feature"
+          branch=($GITHUB_CONTEXT)
+          echo ${branch[0]}
           if [[ $str == feature* ]] ;
           then
             ((minor = minor + 1))
