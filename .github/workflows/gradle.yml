@@ -41,7 +41,7 @@ jobs:
           #!/bin/bash
           if [ $minor == 0 ] ;
           then
-            $minor++
+            (( $minor++ ))
           fi
           echo $major.$minor.$patch
           ./gradlew build -x test
