@@ -39,7 +39,7 @@ jobs:
           echo "patch $patch"
           echo $version
           #!/bin/bash
-          if [[ $GITHUB_CONTEXT == feature* ]] ;
+          if [[ $minor == 0 ]] ;
           then
             $minor++
           fi
