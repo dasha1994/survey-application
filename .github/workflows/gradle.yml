@@ -41,6 +41,7 @@ jobs:
           #!/bin/bash
           str="feature"
           branch=($GITHUB_CONTEXT)
+          echo branch
           echo ${branch[0]}
           if [[ $str == feature* ]] ;
           then
