@@ -14,6 +14,6 @@ public class ApplicationController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String survey() {
-        return "Survey page commit";
+        return "Survey page commit msg";
     }
 }
