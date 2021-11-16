@@ -43,7 +43,7 @@ jobs:
           if [[ $branch == feature* ]] ;
           then
             ((minor = minor + 1))
-          elif [[ $branch == bugfix* ]] ;
+          elif [[ $branch == fix* ]] ;
           then
             ((patch = patch + 1))
           fi
