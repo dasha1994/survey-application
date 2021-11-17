@@ -55,7 +55,6 @@ jobs:
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
-            console.log(TAG::::  ${{ env.TAG }})
             await github.git.createRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
