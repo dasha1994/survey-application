@@ -48,15 +48,14 @@ jobs:
             ((patch = patch + 1))
           fi
           echo $major.$minor.$patch
-          export TAG=$major.$minor.$patch
-          echo "::set-env name=TAG::$TAG"
+          echo "TAG=$major.$minor.$patch" >> $GITHUB_ENV
           ./gradlew build -x test
       - name: Advance nightly tag
         uses: actions/github-script@v5
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
-            console.log(TAG:::: $TAG)
+            console.log(TAG::::  ${{ env.TAG }})
             await github.git.createRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
