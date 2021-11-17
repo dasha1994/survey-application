@@ -58,7 +58,7 @@ jobs:
             await github.git.createRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              ref: "refs/tags/$major.$minor.$patch,
+              ref: "refs/tags/$major.$minor.$patch",
               sha: context.sha
             })
       - uses: actions/upload-artifact@v2
