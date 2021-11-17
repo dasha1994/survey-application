@@ -51,7 +51,7 @@ jobs:
           echo "TAG=$major.$minor.$patch" >> $GITHUB_ENV
           ./gradlew build -x test
       - name: Advance nightly tag
-        uses: actions/github-script@v5
+        uses: actions/github-script@v3
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
