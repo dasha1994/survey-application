@@ -50,14 +50,15 @@ jobs:
           echo $major.$minor.$patch
           ./gradlew build -x test
       - name: Advance nightly tag
-        uses: actions/github-script@v3
+        uses: actions/github-script@v5
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
+            console.log($major.$minor.$patch)
             await github.git.createRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              ref: "refs/tags/$major.$minor.$patch",
+              ref: "refs/tags/$major.$minor.$patch,
               sha: context.sha
             })
       - uses: actions/upload-artifact@v2
