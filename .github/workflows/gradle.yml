@@ -2,7 +2,8 @@ name: Java CI with Gradle
 
 on:
   push:
-    branches: [ $default-branch ]
+    branches:
+      - master
   pull_request:
     branches: [ $default-branch ]
 
@@ -22,4 +23,54 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
       - name: Build with Gradle
-        run: ./gradlew build
+        env:
+          GITHUB_CONTEXT: ${{ github.event.head_commit.message }}
+        run: |
+          git fetch --tags
+          echo ##################
+          version=$(git tag --sort=committerdate | tail -n 1)
+          echo "Version:::::::::"
+          echo $version
+          version_array=( ${version//./ } )
+          major="${version_array[0]}"
+          minor="${version_array[1]}"
+          echo "minor $minor"
+          patch="${version_array[2]}"
+          echo "patch $patch"
+          echo $version
+          str="feature"
+          branch=($GITHUB_CONTEXT)
+          if [[ $branch == feature* ]] ;
+          then
+            ((minor = minor + 1))
+          elif [[ $branch == fix* ]] ;
+          then
+            ((patch = patch + 1))
+          fi
+          echo $major.$minor.$patch
+          echo "TAG=$major.$minor.$patch" >> $GITHUB_ENV
+          ./gradlew build -x test
+      - name: Advance nightly tag
+        uses: actions/github-script@v3hj
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            await github.git.createRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: "refs/tags/${{ env.TAG }}",
+              sha: context.sha
+            })
+      - uses: actions/upload-artifact@v2
+        with:
+          name: Package
+          path: build/libs
+      - name: Download all workflow run artifacts
+        uses: actions/download-artifact@v2
+  remove-old-artifacts:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Remove old artifacts
+        uses: Remagpie/gha-remove-artifact@v1
+        with:
+          max-count: 3
