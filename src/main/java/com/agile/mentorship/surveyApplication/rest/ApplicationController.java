@@ -12,7 +12,7 @@ public class ApplicationController {
         return "Home page";
     }
 
-    @RequestMapping(method = RequestMethod.GET)
+//    @RequestMapping(method = RequestMethod.GET)
     public String survey() {
         return "Survey page branch merge FIX BUG";
     }
