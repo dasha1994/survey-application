@@ -4,7 +4,6 @@ import com.agile.mentorship.surveyApplication.dto.ChronoTagDto;
 import com.agile.mentorship.surveyApplication.service.ChronoTagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,20 +14,20 @@ import java.util.List;
 @RestController
 @RequestMapping("api/v1/chronotags")
 public class ChronoTagController {
-    private ChronoTagService chronoTagService;
+    private final ChronoTagService service;
 
     @Autowired
     public ChronoTagController(ChronoTagService chronoTagService) {
-        this.chronoTagService = chronoTagService;
+        this.service = chronoTagService;
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<ChronoTagDto>> getAllTags() {
+    public ResponseEntity<List<ChronoTagDto>> getAllTags() throws Exception {
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.set("Access-Control-Allow-Origin", "*");
         return ResponseEntity.ok()
                 .headers(responseHeaders)
-                .body(chronoTagService.getAll());
+                .body(service.getAll());
 //        return new ResponseEntity<>(chronoTagService.getAll(), HttpStatus.OK);
     }
 }

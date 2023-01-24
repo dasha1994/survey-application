@@ -35,7 +35,6 @@ public class SurveyCompletionController {
     public ResponseEntity<List<SurveyCompletionByUnitDto>> getSurveyCompletionByUnit() {
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.set("Access-Control-Allow-Origin", "*");
-        System.out.println("get");
         return ResponseEntity.ok()
                 .headers(responseHeaders)
                 .body(service.getSurveysCompletionByUnit());

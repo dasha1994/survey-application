@@ -5,19 +5,27 @@ import java.util.List;
 
 public class SurveyTransactionDto {
     private int id;
+    private String unitName;
+    private int unitId;
+    private int chronoOrderTagId;
+    private String sessionLinked;
+    private Date dateCreated;
+    private int surveyId;
+    private String surveyName;
+    private Date dateSubmitted;
+    private String contactId;
+    private boolean isSuspicious;
+    private String studentId;
+    private List<ResponseDto> responses;
+    private List<CalculatedFieldDto> calculatedFields;
 
     public int getSurveyId() {
         return surveyId;
     }
 
-    private int surveyId;
-    private String surveyName;
-
     public int getUnitId() {
         return unitId;
     }
-
-    private int unitId;
 
     public String getUnitName() {
         return unitName;
@@ -27,23 +35,9 @@ public class SurveyTransactionDto {
         this.unitName = unitName;
     }
 
-    private String unitName;
-    private int chronoOrderTagId;
-    private String sessionLinked;
-    private Date dateCreated;
-
     public Date getDateSubmitted() {
         return dateSubmitted;
     }
-
-    private Date dateSubmitted;
-    private String contactId;
-    private boolean isSuspicious;
-    private String studentIdOverride;
-    private String controlStudentId;
-    private List<ResponseDto> responses;
-    private List<CalculatedFieldDto> calculatedFields;
-
 
     public void setId(int id) {
         this.id = id;
@@ -87,14 +81,6 @@ public class SurveyTransactionDto {
 
     public void setSuspicious(boolean suspicious) {
         isSuspicious = suspicious;
-    }
-
-    public void setStudentIdOverride(String studentIdOverride) {
-        this.studentIdOverride = studentIdOverride;
-    }
-
-    public void setControlStudentId(String controlStudentId) {
-        this.controlStudentId = controlStudentId;
     }
 
     public void setResponses(List<ResponseDto> responses) {

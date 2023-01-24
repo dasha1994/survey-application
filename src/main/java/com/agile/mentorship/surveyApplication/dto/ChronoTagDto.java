@@ -3,7 +3,7 @@ package com.agile.mentorship.surveyApplication.dto;
 import java.util.Objects;
 
 public class ChronoTagDto {
-    private int id;
+    private String id;
     private String value;
     private int displayOrder;
     private int setupId;
@@ -17,7 +17,7 @@ public class ChronoTagDto {
         return displayOrder == that.displayOrder &&
                 setupId == that.setupId &&
                 isDefault == that.isDefault &&
-                id == that.id &&
+                id.equals(that.id) &&
                 value.equals(that.value);
     }
 
@@ -37,11 +37,11 @@ public class ChronoTagDto {
                 '}';
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

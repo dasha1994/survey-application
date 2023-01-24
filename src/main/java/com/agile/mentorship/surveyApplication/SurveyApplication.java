@@ -12,11 +12,6 @@ public class SurveyApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SurveyApplication.class, args);
-		System.out.println("start");
-		SurveyCompletionService surveyCompletionService = new SurveyCompletionService();
-		// List<SurveyCompletionDto> dtos = surveyCompletionService.getSurveysCompletion();
-		surveyCompletionService.getSurveysCompletionByUnit();
-		System.out.println("ff");
 	}
 
 

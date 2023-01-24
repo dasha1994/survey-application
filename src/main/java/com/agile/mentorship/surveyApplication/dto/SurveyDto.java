@@ -11,7 +11,6 @@ public class SurveyDto {
     private List<QuestionDto> questions;
     // rules
 
-
     public List<QuestionDto> getQuestions() {
         return questions;
     }

@@ -1,10 +1,17 @@
-package com.agile.mentorship.surveyApplication.pojo;
+package com.agile.mentorship.surveyApplication.model;
 
+
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Objects;
 
-public class ChronoTagDb {
-    private String id;
+@Document("chronoTags")
+public class ChronoTag {
+
+    @Id
+    private ObjectId id;
     private String value;
     private int displayOrder;
     private int setupId;
@@ -14,12 +21,12 @@ public class ChronoTagDb {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ChronoTagDb that = (ChronoTagDb) o;
-        return displayOrder == that.displayOrder &&
-                setupId == that.setupId &&
-                isDefault == that.isDefault &&
-                id.equals(that.id) &&
-                value.equals(that.value);
+        ChronoTag chronoTag = (ChronoTag) o;
+        return id == chronoTag.id &&
+                displayOrder == chronoTag.displayOrder &&
+                setupId == chronoTag.setupId &&
+                isDefault == chronoTag.isDefault &&
+                Objects.equals(value, chronoTag.value);
     }
 
     @Override
@@ -29,7 +36,7 @@ public class ChronoTagDb {
 
     @Override
     public String toString() {
-        return "ChronoTagDb{" +
+        return "ChronoTag{" +
                 "id='" + id + '\'' +
                 ", value='" + value + '\'' +
                 ", displayOrder=" + displayOrder +
@@ -38,11 +45,11 @@ public class ChronoTagDb {
                 '}';
     }
 
-    public String getId() {
+    public ObjectId getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 
