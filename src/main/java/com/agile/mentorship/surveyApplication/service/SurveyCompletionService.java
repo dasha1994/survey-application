@@ -1,8 +1,13 @@
 package com.agile.mentorship.surveyApplication.service;
 
+import com.agile.mentorship.surveyApplication.dao.IAvailableSurveysRepository;
+import com.agile.mentorship.surveyApplication.dao.ISurveyTransactionRepository;
 import com.agile.mentorship.surveyApplication.dto.SurveyCompletionByUnitDto;
 import com.agile.mentorship.surveyApplication.dto.SurveyCompletionDto;
 import com.agile.mentorship.surveyApplication.dto.SurveyTransactionDto;
+import com.agile.mentorship.surveyApplication.model.aggregation.SurveyCompletion;
+import com.agile.mentorship.surveyApplication.model.aggregation.AvailableSurveys;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,22 +16,53 @@ import java.util.stream.Collectors;
 
 @Service
 public class SurveyCompletionService {
-    int totalCountSurvey = 5000;
-    public List<SurveyCompletionDto> getSurveysCompletion() {
-        List<SurveyTransactionDto> transactions = new SurveyTransactionService().generateSurveyTransactions();
-        Map<String, Long> surveyCompleted = transactions.stream()
-                .filter(t -> t.getDateSubmitted() != null)
-                .collect(Collectors.groupingBy(SurveyTransactionDto::getSurveyName, Collectors.counting()));
+    private ISurveyTransactionRepository transactionRepository;
+    private IAvailableSurveysRepository surveyAmountsRepository;
 
-        List<SurveyCompletionDto> completionDtos = surveyCompleted.entrySet()
-                .stream()
-                .map(stringLongEntry -> transactionToSurveyCompletion(stringLongEntry.getKey(), stringLongEntry.getValue()))
-                .collect(Collectors.toList());
-        completionDtos.add(
-                createTotalCompletionDto(surveyCompleted.size(),
-                (int) surveyCompleted.values().stream().mapToLong(Long::longValue).sum()));
+    @Autowired
+    public SurveyCompletionService(ISurveyTransactionRepository transactionRepository, IAvailableSurveysRepository surveyAmountsRepository) {
+        this.transactionRepository = transactionRepository;
+        this.surveyAmountsRepository = surveyAmountsRepository;
+    }
+
+    //TODO: resolve integer division in floating-point context
+    public List<SurveyCompletionDto> getSurveysCompletion() {
+        List<SurveyCompletion> surveyCompletions = transactionRepository.getSurveyCompletion();
+        Map<Integer, Long> availableSurveys = surveyAmountsRepository.getAvailableSurveysGroupedBySurveyId()
+                .stream().collect(Collectors.toMap(AvailableSurveys::getSurveyId,
+                        AvailableSurveys::getSurveysAvailable));
+
+        List<SurveyCompletionDto> completionDtos = surveyCompletions.stream().map(
+                surveyCompletion -> {
+                    SurveyCompletionDto dto = new SurveyCompletionDto();
+                    dto.setCompleted(Integer.parseInt(String.valueOf(surveyCompletion.getCompleted())));
+                    dto.setSurveyName(surveyCompletion.getSurveyName());
+                    long totalAmount = availableSurveys.get(surveyCompletion.getSurveyId());
+                    dto.setTotalCount(Math.toIntExact(totalAmount));
+                    dto.setPercentage(surveyCompletion.getCompleted() * 100 / totalAmount);
+                    return dto;
+                }).collect(Collectors.toList());
+
+        completionDtos.add(createTotalCompletionDto(completionDtos));
 
         return completionDtos;
+    }
+
+    //TODO: resolve integer division in floating-point context
+    private SurveyCompletionDto createTotalCompletionDto(List<SurveyCompletionDto> completionDtos) {
+        SurveyCompletionDto surveyCompletion = new SurveyCompletionDto();
+        surveyCompletion.setSurveyName("All");
+
+        int totalCompleted = completionDtos.stream()
+                .map(SurveyCompletionDto::getCompleted).mapToInt(Integer::intValue).sum();
+
+        int totalAvailable = completionDtos.stream()
+                .map(SurveyCompletionDto::getTotalCount).mapToInt(Integer::intValue).sum();
+
+        surveyCompletion.setTotalCount(totalAvailable);
+        surveyCompletion.setCompleted(totalCompleted);
+        surveyCompletion.setPercentage(totalCompleted * 100 / totalAvailable);
+        return surveyCompletion;
     }
 
     public List<SurveyCompletionByUnitDto> getSurveysCompletionByUnit() {
@@ -39,8 +75,8 @@ public class SurveyCompletionService {
         return surveyCompletionByUnit.entrySet()
                 .stream()
                 .map(entry -> new SurveyCompletionByUnitDto()
-                    .setUnitName(entry.getKey())
-                    .setSurveysCompletion(toSurveyCompletionDto(entry.getValue()))
+                        .setUnitName(entry.getKey())
+                        .setSurveysCompletion(toSurveyCompletionDto(entry.getValue()))
                 ).collect(Collectors.toList());
     }
 
@@ -56,17 +92,6 @@ public class SurveyCompletionService {
         return completionDtos;
     }
 
-    //TODO: resolve integer division in floating-point context
-    private SurveyCompletionDto transactionToSurveyCompletion(String surveyName, long completed) {
-        double percentage =  completed * 100 / totalCountSurvey;
-        SurveyCompletionDto surveyCompletion = new SurveyCompletionDto();
-        surveyCompletion.setSurveyName(surveyName);
-        surveyCompletion.setTotalCount(totalCountSurvey);
-        surveyCompletion.setCompleted((int)completed);
-        surveyCompletion.setPercentage(percentage);
-        return surveyCompletion;
-    }
-
     private SurveyCompletionDto transactionToSurveyCompletion(String surveyName, long completed, int totalAmount) {
         SurveyCompletionDto surveyCompletion = new SurveyCompletionDto();
         surveyCompletion.setSurveyName(surveyName);
@@ -75,16 +100,5 @@ public class SurveyCompletionService {
         surveyCompletion.setPercentage(completed * 100 / totalAmount);
         return surveyCompletion;
     }
-
-    //TODO: resolve integer division in floating-point context
-    private SurveyCompletionDto createTotalCompletionDto(int amountOfSurveys, int totalCompleted) {
-        SurveyCompletionDto surveyCompletion = new SurveyCompletionDto();
-        surveyCompletion.setSurveyName("All");
-        surveyCompletion.setTotalCount(totalCountSurvey);
-        surveyCompletion.setCompleted(totalCompleted);
-        surveyCompletion.setPercentage(totalCompleted * 100 / (totalCountSurvey*amountOfSurveys));
-        return surveyCompletion;
-    }
-
 
 }

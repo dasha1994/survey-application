@@ -30,8 +30,6 @@ public class SurveyTransactionService {
             dto.setUnitName(unitNames.get(getRandomId(219)));
             dto.setUnitId(getRandomId(200));
             dto.setContactId(id);
-            dto.setControlStudentId(id);
-            dto.setStudentIdOverride(id);
             dto.setSessionLinked(id);
             dto.setDateCreated(new Date());
             dto.setDateSubmitted(new Date());

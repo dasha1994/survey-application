@@ -4,7 +4,7 @@ t.chrono_order_tag as chronoOrderTagId, s.session_linked as sessionLinked, s.dat
 t.date_submitted as dateSubmitted, t.suspicious_txn as isSuspicious
  FROM txn_details t join unit u on t.unit_id = u.id
  join survey_transaction s on t.txn_id = s.id
- where t.unit_id = 598 and t.txn_id = 293115;
+ where t.unit_id = 598;
 
 -- fields
 SET @@group_concat_max_len = 2048;
