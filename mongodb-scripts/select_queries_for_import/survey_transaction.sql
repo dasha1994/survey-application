@@ -76,5 +76,4 @@ JSON_ARRAYAGG(JSON_OBJECT('questionId',  qt.question_id, 'questionText', q.text,
 from
 question_transaction qt join question q on qt.question_id = q.id
 join response_option r on qt.response = r.id
-where survey_transaction_id in (293115, 389192)
 group by survey_transaction_id;

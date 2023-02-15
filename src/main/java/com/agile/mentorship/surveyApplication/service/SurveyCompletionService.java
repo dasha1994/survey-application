@@ -7,6 +7,7 @@ import com.agile.mentorship.surveyApplication.dto.SurveyCompletionDto;
 import com.agile.mentorship.surveyApplication.dto.SurveyTransactionDto;
 import com.agile.mentorship.surveyApplication.model.aggregation.SurveyCompletion;
 import com.agile.mentorship.surveyApplication.model.aggregation.AvailableSurveys;
+import com.agile.mentorship.surveyApplication.model.aggregation.SurveyCompletionByUnit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -66,6 +67,7 @@ public class SurveyCompletionService {
     }
 
     public List<SurveyCompletionByUnitDto> getSurveysCompletionByUnit() {
+        List<SurveyCompletionByUnit> completionByUnit = transactionRepository.getSurveyCompletionByUnit();
         List<SurveyTransactionDto> transactions = new SurveyTransactionService().generateSurveyTransactions();
 
         Map<String, List<SurveyTransactionDto>> surveyCompletionByUnit = transactions.stream()

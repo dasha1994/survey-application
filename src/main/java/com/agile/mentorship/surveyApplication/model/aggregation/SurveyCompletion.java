@@ -3,7 +3,7 @@ package com.agile.mentorship.surveyApplication.model.aggregation;
 import org.springframework.data.annotation.Id;
 
 public class SurveyCompletion {
-    private @Id
+    private
     String surveyName;
     private int surveyId;
     private Long completed;
