@@ -1,7 +1,5 @@
 package com.agile.mentorship.surveyApplication.model.aggregation;
 
-import org.springframework.data.annotation.Id;
-
 public class SurveyCompletion {
     private
     String surveyName;

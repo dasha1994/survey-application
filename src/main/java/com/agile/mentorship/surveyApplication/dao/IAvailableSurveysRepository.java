@@ -6,6 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
+//TODO: redo query and aggregated model
 public interface IAvailableSurveysRepository extends CrudRepository<com.agile.mentorship.surveyApplication.model.AvailableSurveys, String> {
     @Aggregation("{$group: {\n" +
             "  _id: \"$surveyId\",\n" +

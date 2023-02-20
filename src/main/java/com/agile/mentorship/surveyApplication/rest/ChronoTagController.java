@@ -22,12 +22,11 @@ public class ChronoTagController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<ChronoTagDto>> getAllTags() throws Exception {
+    public ResponseEntity<List<ChronoTagDto>> getAllTags() {
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.set("Access-Control-Allow-Origin", "*");
         return ResponseEntity.ok()
                 .headers(responseHeaders)
                 .body(service.getAll());
-//        return new ResponseEntity<>(chronoTagService.getAll(), HttpStatus.OK);
     }
 }

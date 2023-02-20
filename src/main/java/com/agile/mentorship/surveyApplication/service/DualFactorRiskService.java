@@ -1,7 +1,6 @@
 package com.agile.mentorship.surveyApplication.service;
 
 import com.agile.mentorship.surveyApplication.dto.DualFactorRiskDto;
-import com.agile.mentorship.surveyApplication.dto.SurveyDto;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -16,17 +15,17 @@ public class DualFactorRiskService {
     }
 
     List<String> names = Arrays.asList(
-            "Highest Risk",  "Moderate Risk", "Vulnerable",  "Languishing",
-            "Getting By","Moderate Thriving", "High Thriving", "Inconsistent-H", "Inconsistent-M"
+            "Highest Risk", "Moderate Risk", "Vulnerable", "Languishing",
+            "Getting By", "Moderate Thriving", "High Thriving", "Inconsistent-H", "Inconsistent-M"
     );
 
-    List<String> coviCategories = Arrays.asList("Low", "Low Average", "High", "Average" );
+    List<String> coviCategories = Arrays.asList("Low", "Low Average", "High", "Average");
     List<String> psyDistress = Arrays.asList("Elevated", "Normal", "At-Risk");
 
     private List<DualFactorRiskDto> generateDtos() {
         final Random random = new Random();
         List<DualFactorRiskDto> dtos = new ArrayList<>();
-        for(int i = 0; i < names.size(); i++) {
+        for (int i = 0; i < names.size(); i++) {
             DualFactorRiskDto dto = new DualFactorRiskDto();
             dto.setCoviCategory(coviCategories.get(random.nextInt(coviCategories.size())));
             dto.setName(names.get(i));

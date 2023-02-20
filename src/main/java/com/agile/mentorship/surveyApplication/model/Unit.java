@@ -11,5 +11,4 @@ public class Unit {
     private int systemSetup;
     private int type;
     private int subtype;
-
 }

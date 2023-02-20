@@ -14,7 +14,7 @@ public class SurveyService {
 
     private List<SurveyDto> generateDtos() {
         List<SurveyDto> dtos = new ArrayList<>();
-        for(int i = 0; i < 5; i++) {
+        for (int i = 0; i < 5; i++) {
             SurveyDto dto = new SurveyDto();
             dto.setId(i);
             dto.setName("Survey " + i);

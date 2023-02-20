@@ -1,7 +1,6 @@
 package com.agile.mentorship.surveyApplication.rest;
 
 import com.agile.mentorship.surveyApplication.dto.DualFactorRiskDto;
-import com.agile.mentorship.surveyApplication.dto.SurveyDto;
 import com.agile.mentorship.surveyApplication.service.DualFactorRiskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
